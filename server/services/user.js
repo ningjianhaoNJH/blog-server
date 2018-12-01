@@ -15,7 +15,7 @@ const user = {
       username: formData.username});
     return resultData
   },
- 
+
   async getToken(formData) {
     let jwtStr = jwt.sign({
       username: formData.username,
@@ -26,15 +26,10 @@ const user = {
     return jwtStr
   },
   async register(formData) {
-    let resultData = await userModel.getOneByUserNameAndPassword({
-      password: formData.password,
-      username: formData.username});
+    let resultData = await userModel.getOneByUserNameAndPassword(formData);
     if(resultData !== null) return null;
-    
-    resultData = await userModel.postOneByUserNameAndPassword({
-      password: formData.password,
-      username: formData.username});
-    
+
+    resultData = await userModel.postOneByUserNameAndPassword(formData);
     return resultData
   }
 };
