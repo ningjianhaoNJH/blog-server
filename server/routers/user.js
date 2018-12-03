@@ -4,6 +4,6 @@
 const router = require('koa-router')();
 const adminController = require('../controllers/user');
 const routers = router
-  .post('/login', adminController.login)
-  .post('/register', adminController.register);
+    .post('/login', adminController.login)
+    .post('/register', adminController.register);
 module.exports = routers;

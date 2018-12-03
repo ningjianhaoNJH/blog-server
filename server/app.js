@@ -16,22 +16,30 @@ const publicKey = fs.readFileSync(path.join(__dirname, '../publicKey.pub'));
 
 const app = new Koa();
 app.use(koaLogger());
-app.use(jwtKoa({publicKey}).unless({
-  path: [/^\/user\/login/,/^\/user\/register/]
-}));
-
 app.use(bodyParser());
 app.use(koaCors({
   origin: "*",
-  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
   maxAge: 100,
   credentials: true,
   allowMethods: ["PUT","POST","GET","DELETE","OPTIONS"],
   allowHeaders: ['Content-Type', 'Authorization', 'Accept', 'Content-Length', 'X-Requested-With'],
 }));
+
+app.use((ctx, next) => {
+    return next().catch((err) => {
+        if(err.status === 401){
+            ctx.status = 401;
+            ctx.body = '权限不足';
+        }else{
+            throw err;
+        }
+    })
+});
+app.use(jwtKoa({secret: publicKey, key: 'jwtData'}).unless({
+    path: [/^\/user\/login/,/^\/user\/register/]
+}));
+
 app.use(koaStatic(path.join(__dirname, './../static')));
-
 app.use(router.routes()).use(router.allowedMethods());
-
 app.listen(config.port);
 console.log(`the server is start at port:${config.port}`);

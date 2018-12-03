@@ -19,6 +19,7 @@ module.exports = function() {
             await next();
             return
         }
+        next().catch()
         let decode = await checkAuth(ctx);
         if (!decode) {
             let result = {

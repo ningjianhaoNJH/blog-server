@@ -23,7 +23,7 @@ const user = {
       type: config.type,
       service: config.service,
     }, publicKey, { expiresIn: '168h' });
-    return jwtStr
+    return 'Bearer ' + jwtStr
   },
   async register(formData) {
     let resultData = await userModel.getOneByUserNameAndPassword(formData);
