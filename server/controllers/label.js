@@ -1,8 +1,4 @@
-/**
- * Created by lenovo on 2018/11/28.
- * 文章评论
- */
-const commentService = require('../services/label');
+const labelService = require('../services/label');
 module.exports = {
     async postLabel(ctx) {
         let result = {
@@ -14,7 +10,7 @@ module.exports = {
             name: ctx.request.body.name.trim(),
             u_id: ctx.state.jwtData.userId
         };
-        await commentService.postLabel(formData)
+        await labelService.postLabel(formData)
             .then((res) => {
                 if (!res) {
                     ctx.response.status = 400;
@@ -39,7 +35,7 @@ module.exports = {
             data: null,
             code: 400
         };
-        await commentService.deletecommentService({id: ctx.params.id, uid: ctx.state.jwtData.userId})
+        await labelService.deleteLabelService({id: ctx.params.id, uid: ctx.state.jwtData.userId})
             .then((res) => {
                 if (res.affectedRows !== 0) {
                     result.message = 'SUCCESS';
@@ -68,7 +64,7 @@ module.exports = {
             name: ctx.request.body.name,
             id: ctx.request.body.id
         };
-        await commentService.putcommentService(formData)
+        await labelService.putLabelService(formData)
             .then((res) => {
                 if (res.affectedRows !== 0) {
                     result.message = 'SUCCESS';
@@ -93,7 +89,7 @@ module.exports = {
             data: null,
             code: 400
         };
-        await commentService.getcommentService(ctx.state.jwtData.userId)
+        await labelService.getLabelService(ctx.state.jwtData.userId)
             .then((res) => {
                 result.message = 'SUCCESS';
                 result.data = res;

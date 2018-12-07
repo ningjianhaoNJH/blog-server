@@ -1,8 +1,8 @@
 const router = require('koa-router')();
-const adminController = require('../controllers/classification');
+const classController = require('../controllers/classification');
 const routers = router
-    .get('/', adminController.getClass)
-    .put('/', adminController.putClass)
-    .post('/', adminController.postClass)
-    .delete('/:id', adminController.deleteClass);
+    .get('/', classController.getClass)
+    .put('/', classController.putClass)
+    .post('/', classController.postClass)
+    .delete('/:id', classController.deleteClass);
 module.exports = routers;
