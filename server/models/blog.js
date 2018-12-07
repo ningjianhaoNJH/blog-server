@@ -13,7 +13,16 @@ const blogModel = {
     async getBlogByUserId(id) {
         let _sql = `SELECT * FROM blog  WHERE u_id=${id} order by created_time desc limit 2`;
         let result = await dbUtils.query(_sql);
-        return result
+        return result;
+    },
+    async putBlogByBlogId(opt) {
+        let result = await dbUtils.updateData('blog', opt, opt.id);
+        return result;
+    },
+    async deleteBlogByUserIdAndId(opt) {
+        let _sql = `DELETE FROM blog WHERE id=${opt.id} AND u_id=${opt.uid}`;
+        let result = await dbUtils.query(_sql)
+        return result;
     }
 };
 module.exports = blogModel;

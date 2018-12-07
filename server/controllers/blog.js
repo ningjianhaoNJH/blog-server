@@ -7,9 +7,16 @@ const comUtil = require('./../utils/common');
 module.exports = {
     async postBlog(ctx) {
         let formData = ctx.request.body;
-        formData.u_id = ctx.state.jwtData.userId;
-        formData.created_time = new Date().getTime();
-        let blogResult = await blogService.createBlog(formData);
+        let _formData = {
+            c_id: formData.c_id,
+            u_id: ctx.state.jwtData.userId,
+            title: formData.title,
+            created_time: new Date().getTime(),
+            context: formData.context,
+            label: formData.label,
+            type: formData.type
+        };
+        let blogResult = await blogService.createBlog(_formData);
         let result = {
             message: '参数错误',
             data: null,
@@ -26,12 +33,57 @@ module.exports = {
         ctx.body = result;
     },
     async deleteBlog(ctx) {
-        ctx.request.status = 200;
-        ctx.body = '删除博客';
+        let blogResult = await blogService.deleteBlogService({id: ctx.params.id, uid: ctx.state.jwtData.userId});
+        let result = {
+            message: '参数错误',
+            data: null,
+            code: 400
+        };
+        if(blogResult.affectedRows === 0) {
+            result.message = '未找到博客';
+            ctx.response.status = 400;
+            ctx.body = result;
+        } else {
+            result.message = 'SUCCESS';
+            result.code = 200;
+            ctx.response.status = 200;
+            ctx.body = result;
+        }
     },
     async putBlog(ctx) {
-        ctx.request.status = 200;
-        ctx.body = '更新博客';
+        let formData = ctx.request.body;
+        let result = {
+            message: '参数错误',
+            data: null,
+            code: 400
+        };
+        if (formData.u_id !== ctx.state.jwtData.userId) {
+            ctx.response.status = 401;
+            result.message = '用户权限错误';
+            ctx.body = result;
+            result.code = 401;
+            return
+        }
+        let _formData = {
+            c_id: formData.c_id,
+            id: formData.id,
+            title: formData.title,
+            updated_time: new Date().getTime(),
+            context: formData.context,
+            label: formData.label,
+            type: formData.type
+        };
+        let blogResult = await blogService.putBlogService(_formData);
+
+        if (!blogResult) {
+            ctx.response.status = 400;
+            ctx.body = result;
+            return
+        }
+        result.code = 200;
+        result.message = "SUCCESS";
+        ctx.response.status = 200;
+        ctx.body = result;
     },
     async getBlog(ctx) {
         let blogResult = await blogService.getBlogService(ctx.state.jwtData.userId);
@@ -50,5 +102,5 @@ module.exports = {
         result.message = "SUCCESS";
         ctx.response.status = 200;
         ctx.body = result;
-    }
+    },
 };

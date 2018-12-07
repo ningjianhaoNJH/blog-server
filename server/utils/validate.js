@@ -1,6 +1,7 @@
-const vali = require('validate');
+// const vali = require('validate');
 
 const validate = {
-    validatorSignUp() {}
+    validateUserId(ctx, uid, result) {
+    }
 };
 module.exports = validate;

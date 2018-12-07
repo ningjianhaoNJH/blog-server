@@ -7,5 +7,5 @@ const routers = router
     .get('/', adminController.getBlog)
     .put('/', adminController.putBlog)
     .post('/', adminController.postBlog)
-    .delete('/', adminController.deleteBlog);
+    .delete('/:id', adminController.deleteBlog);
 module.exports = routers;
