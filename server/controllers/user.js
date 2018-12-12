@@ -4,9 +4,11 @@
  */
 const userCode = require('./../codes/user');
 const userInfoService = require('../services/user');
+const config = require('../../config');
 module.exports = {
     async login(ctx) {
         let formData = ctx.request.body;
+
         let userResult = await userInfoService.signIn(formData); // 获取获取用户信息
         let result = {
             message: userCode.FAIL_USER_NAME_OR_PASSWORD_ERROR,
@@ -29,6 +31,7 @@ module.exports = {
     },
     async register(ctx) {
         let formData = ctx.request.body;
+        formData.avatar = formData.avatar || config.defaultAvatar;
         let userResult = await userInfoService.register(formData); // 注册后获取id
         let result = {
             message: userCode.FAIL_USER_NAME_IS_EXIST,

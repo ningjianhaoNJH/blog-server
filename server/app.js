@@ -41,5 +41,8 @@ app.use(jwtKoa({secret: publicKey, key: 'jwtData'}).unless({
 
 app.use(koaStatic(path.join(__dirname, './../static')));
 app.use(router.routes()).use(router.allowedMethods());
+
+
+
 app.listen(config.port);
 console.log(`the server is start at port:${config.port}`);
