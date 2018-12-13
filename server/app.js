@@ -36,7 +36,7 @@ app.use((ctx, next) => {
     })
 });
 app.use(jwtKoa({secret: publicKey, key: 'jwtData'}).unless({
-    path: [/^\/user\/login/,/^\/user\/register/]
+    path: [/^\/user\/login/,/^\/user\/register/,/^\/home/]
 }));
 
 app.use(koaStatic(path.join(__dirname, './../static')));

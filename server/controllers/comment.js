@@ -90,7 +90,6 @@ module.exports = {
             data: null,
             code: 400
         };
-        ctx.body = "获取评论";
         await commentService.getCommentService({bid: ctx.params.id, uid: ctx.state.jwtData.userId})
             .then((res) => {
                 result.message = 'SUCCESS';

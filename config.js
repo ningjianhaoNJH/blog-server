@@ -5,10 +5,11 @@ module.exports = {
   port: 3000,
   service: 'blog-shell',
   type: 'token',
+  defaultAvatar: 'http://ico-list.oss-cn-hangzhou.aliyuncs.com/cryptovalut/20181212135757ijbtjjQWMT.jpg',
   database: {
-    HOST: 'localhost',
+    HOST: '47.101.151.182',
     USERNAME: 'root',
-    PASSWORD: 'njh362524',
+    PASSWORD: '123123', // njh362524
     DATABASE: 'blog'
   }
 };
