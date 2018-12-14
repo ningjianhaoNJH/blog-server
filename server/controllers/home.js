@@ -1,6 +1,6 @@
 const homeService = require('../services/home');
 module.exports = {
-    async getComment(ctx) {
+    async getHome(ctx) {
         let result = {
             message: '',
             data: null,

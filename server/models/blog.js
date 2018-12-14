@@ -10,8 +10,8 @@ const blogModel = {
         }
         return result
     },
-    async getBlogByUserId(id) {
-        let _sql = `SELECT * FROM blog  WHERE u_id=${id} order by created_time desc limit 2`;
+    async getBlogByUserId(opt) {
+        let _sql = `SELECT * FROM blog  WHERE u_id=${opt.id} order by ${opt.orderBy}`;
         let result = await dbUtils.query(_sql);
         return result;
     },
@@ -22,6 +22,11 @@ const blogModel = {
     async deleteBlogByUserIdAndId(opt) {
         let _sql = `DELETE FROM blog WHERE id=${opt.id} AND u_id=${opt.uid}`;
         let result = await dbUtils.query(_sql)
+        return result;
+    },
+    async getHotBlogByUserId(opt) {
+        let _sql = `SELECT * FROM blog  ${opt.id ? 'WHERE u_id=' + opt.id : ''} order by ${opt.orderBy} limit ${opt.pageNum}, ${opt.pageSize}`;
+        let result = await dbUtils.query(_sql);
         return result;
     }
 };

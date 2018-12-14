@@ -16,6 +16,10 @@ const user = {
     async postOneByUserNameAndPassword(opt) {
         let result = await dbUtils.insertData('user', opt);
         return result;
+    },
+    async getUserById(id) {
+        let result = await dbUtils.findDataById('user', id);
+        return result;
     }
 };
 module.exports = user;
