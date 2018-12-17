@@ -8,11 +8,11 @@ module.exports = {
     async postBlog(ctx) {
         let formData = ctx.request.body;
         let _formData = {
-            c_id: formData.c_id,
+            classic: formData.classic,
             u_id: ctx.state.jwtData.userId,
             title: formData.title,
             created_time: new Date().getTime(),
-            context: formData.context,
+            content: formData.content,
             label: formData.label,
             type: formData.type
         };

@@ -14,6 +14,7 @@ const homeService = {
             classModel.getClassById(1),
             blogModel.getBlogByUserId({id: 1, orderBy: 'created_time asc'})
         ]);
+        delete userInfo.password;
         userArchive.forEach((item) => {
             let y = new Date(item.created_time).getFullYear();
             let m = new Date(item.created_time).getMonth() + 1;

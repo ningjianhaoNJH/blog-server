@@ -19,7 +19,7 @@ const user = {
     },
     async getUserById(id) {
         let result = await dbUtils.findDataById('user', id);
-        return result;
+        return result[0];
     }
 };
 module.exports = user;

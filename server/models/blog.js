@@ -25,7 +25,7 @@ const blogModel = {
         return result;
     },
     async getHotBlogByUserId(opt) {
-        let _sql = `SELECT * FROM blog  ${opt.id ? 'WHERE u_id=' + opt.id : ''} order by ${opt.orderBy} limit ${opt.pageNum}, ${opt.pageSize}`;
+        let _sql = `SELECT * FROM blog ${opt.id ? 'WHERE u_id=' + opt.id : ''} order by ${opt.orderBy} limit ${opt.pageNum}, ${opt.pageSize}`;
         let result = await dbUtils.query(_sql);
         return result;
     }
