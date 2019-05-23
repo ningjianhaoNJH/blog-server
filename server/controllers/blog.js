@@ -4,7 +4,7 @@
  */
 const blogService = require('../services/blog');
 const comUtil = require('./../utils/common');
-const aa = 22222222222;
+const aa = 222222222222;
 // sdldlks
 module.exports = {
     async postBlog(ctx) {
