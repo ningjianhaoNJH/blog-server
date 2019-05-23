@@ -4,6 +4,8 @@
  */
 const blogService = require('../services/blog');
 const comUtil = require('./../utils/common');
+const aa = 1232;
+// sdldlks
 module.exports = {
     async postBlog(ctx) {
         let formData = ctx.request.body;
